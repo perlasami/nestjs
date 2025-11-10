@@ -1,5 +1,5 @@
 import { Controller, Get, Req } from '@nestjs/common';
-import type { RequestWithUser } from '../auth/types';
+import type { RequestWithUser } from '../auth/types/types';
 
 @Controller('users')
 export class UserController {

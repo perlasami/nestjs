@@ -6,6 +6,10 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { JwtMiddleware } from './auth/jwt-middleware';
+import { LoggerMiddleware } from './middleware/logger.middleware';
+import { BrandModule } from './brand/brand.module';
+import { CategoryModule } from './category/category.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -16,12 +20,21 @@ import { JwtMiddleware } from './auth/jwt-middleware';
       secret: 'superSecretKey',
       signOptions: { expiresIn: '1h' },
     }),
+    BrandModule,
+    CategoryModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
+export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(JwtMiddleware).forRoutes('/users/profile');
+    consumer
+      .apply(LoggerMiddleware)
+      .exclude({
+        path: '/auth/login',
+        method: RequestMethod.POST,
+      })
+      .forRoutes('*');
   }
 }
