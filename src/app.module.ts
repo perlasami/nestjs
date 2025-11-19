@@ -10,6 +10,8 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 import { BrandModule } from './brand/brand.module';
 import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
+import { CartModule } from './cart/cart.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { ProductModule } from './product/product.module';
     BrandModule,
     CategoryModule,
     ProductModule,
+    CartModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
